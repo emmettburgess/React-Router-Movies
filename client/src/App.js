@@ -3,8 +3,11 @@ import React, { Component } from "react";
 import SavedList from "./Movies/SavedList";
 import MovieList from "./Movies/MovieList";
 import Movie from "./Movies/Movie";
-
-import { Route } from "react-router-dom";
+import ReactDOM from 'react-dom';
+import { 
+  BrowserRouter as Router,
+  Route,
+  NavLink } from "react-router-dom";
 
 export default class App extends Component {
   constructor() {
@@ -27,10 +30,25 @@ export default class App extends Component {
       <div>
         <SavedList list={this.state.savedList} />
         <div>
-          <Route exact path="/" render={ (props) => <MovieList list={this.state.savedList} {...props} /> } />
-          <Route path="/movies/:id" render={ (props) => <Movie addToSavedList={this.addToSavedList} savedList={this.state.savedList} {...props} /> } />
+          <nav>
+            <NavLink exact to="/">Movie List</NavLink>
+          </nav>
+
+
+
+          <Route exact path="/" component={MovieList} />
+          <Route path="/movies/:id" render={ (props) => <Movie {...props} items={this.state.items} />}
+          />
         </div>
       </div>
     );
   }
 }
+
+const rootElement = document.getElementById("root");
+ReactDOM.render(
+  <Router>
+    <App />
+  </Router>,
+  rootElement
+);

@@ -49,6 +49,9 @@ export default class Movie extends Component {
         <MovieCard movie={this.state.movie} />
 
         <div onClick={this.saveMovie} className="save-button">Save</div>
+
+        <Route exact path="/movies/:id" />
+
       </div>
     );
   }
